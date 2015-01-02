@@ -8,3 +8,5 @@ target
 .eclipse
 log.txt
 contents
+.vagrant
+
