@@ -1,0 +1,10 @@
+/target
+/data
+*~
+.project
+.settings
+target
+.classpath
+.eclipse
+log.txt
+contents
