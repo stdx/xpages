@@ -1,6 +1,5 @@
 package de.cmm.xpages.resources;
 
-import org.codehaus.jackson.annotate.JsonProperty;
 
 public class ProductDTO {
 
@@ -14,7 +13,6 @@ public class ProductDTO {
 		return id;
 	}
 
-	@JsonProperty("template_id")
 	public int getTemplateId() {
 		return templateId;
 	}
@@ -27,7 +25,6 @@ public class ProductDTO {
 		this.templateId = templateId;
 	}
 
-	@JsonProperty("company_id")
 	public int getCompanyId() {
 		return companyId;
 	}
