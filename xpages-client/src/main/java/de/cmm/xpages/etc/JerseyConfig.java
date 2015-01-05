@@ -9,9 +9,9 @@ import de.cmm.xpages.resources.impl.ProductTemplateResourceImpl;
 @Component
 public class JerseyConfig extends ResourceConfig {
 
-    public JerseyConfig() {
-        register(CompanyResourceImpl.class);
-        register(ProductTemplateResourceImpl.class);
-    }
+	public JerseyConfig() {
+		register(CompanyResourceImpl.class);
+		register(ProductTemplateResourceImpl.class);
+	}
 
 }

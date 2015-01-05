@@ -36,4 +36,10 @@ public interface CompanyResource extends SimpleResource<CompanyDTO> {
 	@Produces(MediaType.APPLICATION_JSON)
 	List<CompanyDTO> fetchAll();
 	
+	@GET
+	@Path("{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	CompanyDTO fetch(@PathParam("id") int id);
+	
+	
 }
