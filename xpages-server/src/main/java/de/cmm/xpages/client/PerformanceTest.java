@@ -11,6 +11,7 @@ import java.util.concurrent.TimeUnit;
 
 import javax.ws.rs.core.Response;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.StopWatch;
 import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
 import org.apache.commons.math3.stat.descriptive.SynchronizedDescriptiveStatistics;
@@ -32,7 +33,7 @@ public class PerformanceTest implements Runnable {
 
 	public static void main(final String[] args) throws InterruptedException {
 		
-		final int numberOfClients = 1;
+		final int numberOfClients = 2;
 		final ExecutorService pool = Executors.newFixedThreadPool(numberOfClients);
 		
 		final HashMap<String, DescriptiveStatistics> stats = new HashMap<String, DescriptiveStatistics>();
@@ -60,21 +61,18 @@ public class PerformanceTest implements Runnable {
 		
 		pool.shutdown();
 		pool.awaitTermination(1, TimeUnit.DAYS);
-		for (Map.Entry<String, DescriptiveStatistics> e : stats.entrySet()) {
-			printStat(e.getKey(), e.getValue());
+		
+		System.out.println(StringUtils.join(new String[]{"number of clients","name","geometric","arithmetic","min","max","n"}, "\t"));
+		for (final Map.Entry<String, DescriptiveStatistics> e : stats.entrySet()) {
+			final DescriptiveStatistics s = e.getValue();
+			System.out.println(StringUtils.join(new Object[]{
+					numberOfClients ,e.getKey(), s.getGeometricMean(), s.getMean(), s.getMin(), s.getMax(), s.getN()
+			}, "\t"));
 		}
 		
 		
 	}
 	
-	private static void printStat(final String string, final DescriptiveStatistics stats) {
-		log.debug("");
-		log.debug("==== {} ====", string);
-		log.debug(stats.toString());
-		log.debug("==== {} ====", string);
-		log.debug("");
-	}
-
 	private static final Logger log = LoggerFactory.getLogger(PerformanceTest.class);
 	private final CompanyResource companyClient;
 
@@ -105,7 +103,7 @@ public class PerformanceTest implements Runnable {
 
 		final int numberOfCompanies = 100;
 		final int numberOfTemplates = 200;
-		final int timesToBeRepeated = 10;
+		final int timesToBeRepeated = 5;
 		final int numberOfTemplatesToBeAssigned = 20;
 		
 		final DescriptiveStatistics createCompanyStats = stats.get("Create Company");
